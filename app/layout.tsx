@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Newsreader, DM_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "./components/ThemeProvider";
 import "./globals.css";
 
@@ -122,6 +123,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${newsreader.variable} ${dmSans.variable} antialiased`}>
         <ThemeProvider>{children}</ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
