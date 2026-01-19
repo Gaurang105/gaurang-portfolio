@@ -1,10 +1,67 @@
 import Link from "next/link";
+import { Metadata } from "next";
 import { getAllPosts, BlogPostMeta } from "@/lib/blog";
 import { Navigation } from "../components/Navigation";
 
-export const metadata = {
-    title: "Blog — Gaurang Gujrati",
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://gaurang.blog";
+
+export const metadata: Metadata = {
+    title: "Blog",
+    description: "Thoughts on software engineering, AI, web scraping, and building products. Technical articles and tutorials by Gaurang Gujrati.",
+    keywords: [
+        "software engineering blog",
+        "web development tutorials",
+        "AI articles",
+        "Python tutorials",
+        "React tutorials",
+        "TypeScript",
+        "web scraping",
+        "tech blog",
+    ],
+    openGraph: {
+        title: "Blog — Gaurang Gujrati",
+        description: "Thoughts on software engineering, AI, and building products.",
+        url: `${siteUrl}/blog`,
+        type: "website",
+        images: [
+            {
+                url: "/images/profile.png",
+                width: 1200,
+                height: 630,
+                alt: "Gaurang Gujrati's Blog",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Blog — Gaurang Gujrati",
+        description: "Thoughts on software engineering, AI, and building products.",
+        images: ["/images/profile.png"],
+    },
+    alternates: {
+        canonical: `${siteUrl}/blog`,
+    },
+};
+
+// JSON-LD for Blog listing page
+const blogJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": `${siteUrl}/blog#blog`,
+    name: "Gaurang Gujrati's Blog",
     description: "Thoughts on software engineering, AI, and building products.",
+    url: `${siteUrl}/blog`,
+    author: {
+        "@type": "Person",
+        name: "Gaurang Gujrati",
+        url: siteUrl,
+    },
+    publisher: {
+        "@type": "Person",
+        name: "Gaurang Gujrati",
+        url: siteUrl,
+    },
+    inLanguage: "en-US",
 };
 
 function formatDate(dateString: string): string {
@@ -21,6 +78,12 @@ export default async function BlogPage() {
 
     return (
         <div className="min-h-screen">
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(blogJsonLd) }}
+            />
+
             <Navigation currentPage="blog" />
 
             {/* Header */}

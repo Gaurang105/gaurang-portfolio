@@ -1,7 +1,8 @@
 ---
 title: "How to make websites spill their guts?"
-date: "23-08-2024"
-excerpt: "Learn powerful web scraping techniques to extract data from websites efficiently and ethically."
+date: "2024-08-23"
+excerpt: "Learn powerful web scraping techniques to extract data from websites efficiently and ethically. A comprehensive guide covering BeautifulSoup, Selenium, and advanced scraping methods."
+tags: ["web scraping", "python", "selenium", "beautifulsoup", "automation", "tutorial"]
 ---
 
 Welcome to the world of web scraping, a powerful technique for extracting data from websites. If you're reading this, you're likely interested in learning how to efficiently collect information from the internet.

@@ -3,6 +3,89 @@ import Link from "next/link";
 import { Navigation } from "./components/Navigation";
 import { GitHubChart } from "./components/GitHubChart";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://gaurang.blog";
+
+// JSON-LD Structured Data for SEO
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      url: siteUrl,
+      name: "Gaurang Gujrati",
+      description: "Software Engineer building full-stack platforms and AI-powered systems",
+      publisher: {
+        "@id": `${siteUrl}/#person`,
+      },
+      inLanguage: "en-US",
+    },
+    {
+      "@type": "Person",
+      "@id": `${siteUrl}/#person`,
+      name: "Gaurang Gujrati",
+      url: siteUrl,
+      image: {
+        "@type": "ImageObject",
+        url: `${siteUrl}/images/profile.png`,
+        width: 224,
+        height: 224,
+      },
+      jobTitle: "Software Engineer",
+      worksFor: {
+        "@type": "Organization",
+        name: "Headout",
+        url: "https://www.headout.com",
+      },
+      alumniOf: {
+        "@type": "EducationalOrganization",
+        name: "SRM Institute of Science and Technology",
+        url: "https://www.srmist.edu.in",
+      },
+      knowsAbout: [
+        "Python",
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Node.js",
+        "FastAPI",
+        "PostgreSQL",
+        "MongoDB",
+        "AWS",
+        "Docker",
+        "Machine Learning",
+        "Artificial Intelligence",
+      ],
+      sameAs: [
+        "https://github.com/Gaurang105",
+        "https://www.linkedin.com/in/gaurang-gujrati-088a931b8/",
+        "https://x.com/GaurangGujrati",
+      ],
+      email: "mailto:gujratigaurang@gmail.com",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bangalore",
+        addressCountry: "India",
+      },
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${siteUrl}/#webpage`,
+      url: siteUrl,
+      name: "Gaurang Gujrati — Software Engineer",
+      description: "Software Engineer building full-stack platforms and AI-powered systems. Currently at Headout.",
+      isPartOf: {
+        "@id": `${siteUrl}/#website`,
+      },
+      about: {
+        "@id": `${siteUrl}/#person`,
+      },
+      inLanguage: "en-US",
+    },
+  ],
+};
+
 const experiences = [
   {
     company: "Headout",
@@ -86,6 +169,12 @@ const skills = {
 export default function Home() {
   return (
     <div className="min-h-screen">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <Navigation currentPage="home" />
 
       {/* Hero Section */}

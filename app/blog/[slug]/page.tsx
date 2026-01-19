@@ -1,10 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { getPostBySlug, getAllSlugs } from "@/lib/blog";
 import { Navigation } from "../../components/Navigation";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://gaurang.blog";
 
 interface PageProps {
     params: Promise<{ slug: string }>;
@@ -15,19 +18,98 @@ export async function generateStaticParams() {
     return slugs.map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
     const post = await getPostBySlug(slug);
 
     if (!post) {
         return {
-            title: "Post Not Found — Gaurang Gujrati",
+            title: "Post Not Found",
+            description: "The requested blog post could not be found.",
         };
     }
 
+    const postUrl = `${siteUrl}/blog/${slug}`;
+
     return {
-        title: `${post.title} — Gaurang Gujrati`,
+        title: post.title,
         description: post.excerpt,
+        keywords: post.tags,
+        authors: [{ name: "Gaurang Gujrati", url: siteUrl }],
+        openGraph: {
+            title: post.title,
+            description: post.excerpt,
+            type: "article",
+            url: postUrl,
+            publishedTime: new Date(post.date).toISOString(),
+            authors: ["Gaurang Gujrati"],
+            tags: post.tags,
+            images: [
+                {
+                    url: "/images/profile.png",
+                    width: 1200,
+                    height: 630,
+                    alt: post.title,
+                },
+            ],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: post.title,
+            description: post.excerpt,
+            creator: "@GaurangGujrati",
+            images: ["/images/profile.png"],
+        },
+        alternates: {
+            canonical: postUrl,
+        },
+    };
+}
+
+// Generate JSON-LD for article
+function generateArticleJsonLd(post: {
+    title: string;
+    excerpt: string;
+    date: string;
+    readingTime: number;
+    tags?: string[];
+    slug: string;
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "@id": `${siteUrl}/blog/${post.slug}#article`,
+        headline: post.title,
+        description: post.excerpt,
+        url: `${siteUrl}/blog/${post.slug}`,
+        datePublished: new Date(post.date).toISOString(),
+        dateModified: new Date(post.date).toISOString(),
+        author: {
+            "@type": "Person",
+            name: "Gaurang Gujrati",
+            url: siteUrl,
+            image: `${siteUrl}/images/profile.png`,
+        },
+        publisher: {
+            "@type": "Person",
+            name: "Gaurang Gujrati",
+            url: siteUrl,
+            image: `${siteUrl}/images/profile.png`,
+        },
+        image: `${siteUrl}/images/profile.png`,
+        mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": `${siteUrl}/blog/${post.slug}`,
+        },
+        keywords: post.tags?.join(", "),
+        wordCount: post.readingTime * 200, // Approximate based on reading time
+        timeRequired: `PT${post.readingTime}M`,
+        inLanguage: "en-US",
+        isPartOf: {
+            "@type": "Blog",
+            "@id": `${siteUrl}/blog#blog`,
+            name: "Gaurang Gujrati's Blog",
+        },
     };
 }
 
@@ -48,12 +130,27 @@ export default async function BlogPostPage({ params }: PageProps) {
         notFound();
     }
 
+    const articleJsonLd = generateArticleJsonLd({
+        title: post.title,
+        excerpt: post.excerpt,
+        date: post.date,
+        readingTime: post.readingTime,
+        tags: post.tags,
+        slug: slug,
+    });
+
     return (
         <div className="min-h-screen">
+            {/* JSON-LD Structured Data */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+            />
+
             <Navigation currentPage="post" />
 
             {/* Article */}
-            <article className="pt-36 pb-24 md:pt-48">
+            <article className="pt-36 pb-24 md:pt-48" itemScope itemType="https://schema.org/BlogPosting">
                 <div className="max-w-3xl mx-auto px-6 md:px-12">
                     {/* Back Link */}
                     <Link
@@ -79,11 +176,12 @@ export default async function BlogPostPage({ params }: PageProps) {
 
                     {/* Header */}
                     <header className="mb-16">
-                        <h1 className="font-serif text-display font-medium text-ink leading-tight mb-8 animate-fade-up delay-1">
+                        <h1 className="font-serif text-display font-medium text-ink leading-tight mb-8 animate-fade-up delay-1" itemProp="headline">
                             {post.title}
                         </h1>
+                        <meta itemProp="description" content={post.excerpt} />
                         <div className="flex flex-wrap items-center gap-4 text-sm text-ink-muted animate-fade-up delay-2">
-                            <time>{formatDate(post.date)}</time>
+                            <time itemProp="datePublished" dateTime={new Date(post.date).toISOString()}>{formatDate(post.date)}</time>
                             <span className="w-1 h-1 rounded-full bg-border" />
                             <span>{post.readingTime} min read</span>
                             {post.tags && post.tags.length > 0 && (

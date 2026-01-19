@@ -1,0 +1,17 @@
+{
+  "name": "Gaurang Gujrati - Software Engineer",
+  "short_name": "Gaurang",
+  "description": "Software Engineer building full-stack platforms and AI-powered systems. Currently at Headout.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f6f1",
+  "theme_color": "#8b4513",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
