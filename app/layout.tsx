@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Newsreader, DM_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { SkipLink } from "./components/SkipLink";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -122,6 +123,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${newsreader.variable} ${dmSans.variable} antialiased`}>
+        <SkipLink />
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
       </body>

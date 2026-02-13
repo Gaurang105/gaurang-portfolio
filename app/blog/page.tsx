@@ -6,7 +6,7 @@ import { Navigation } from "../components/Navigation";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://gaurang.blog";
 
 export const metadata: Metadata = {
-    title: "Blog",
+    title: "Blog — Software Engineering & AI Articles",
     description: "Thoughts on software engineering, AI, web scraping, and building products. Technical articles and tutorials by Gaurang Gujrati.",
     keywords: [
         "software engineering blog",

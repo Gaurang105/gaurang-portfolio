@@ -11,6 +11,9 @@ export function GitHubChart() {
                 src={`https://ghchart.rshah.org/${theme === "dark" ? "f59e0b" : "b45309"}/Gaurang105`}
                 alt="Gaurang's GitHub Contribution Chart"
                 className="w-full max-w-4xl mx-auto"
+                width={722}
+                height={112}
+                loading="lazy"
                 style={{ minWidth: "700px" }}
             />
         </div>

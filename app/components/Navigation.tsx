@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
 
 interface NavigationProps {
-    currentPage?: "home" | "blog" | "post";
+    currentPage?: "home" | "blog" | "post" | "about" | "contact" | "privacy";
 }
 
 export function Navigation({ currentPage = "home" }: NavigationProps) {
@@ -41,12 +41,24 @@ export function Navigation({ currentPage = "home" }: NavigationProps) {
                             >
                                 Blog
                             </Link>
-                            <a
-                                href="mailto:gujratigaurang@gmail.com"
-                                className="text-accent hover:text-accent-light transition-colors duration-300 font-medium"
+                            <Link
+                                href="/about"
+                                className={`transition-colors duration-300 ${currentPage === "about"
+                                        ? "text-ink"
+                                        : "text-ink-muted hover:text-ink"
+                                    }`}
+                            >
+                                About
+                            </Link>
+                            <Link
+                                href="/contact"
+                                className={`transition-colors duration-300 font-medium ${currentPage === "contact"
+                                        ? "text-accent"
+                                        : "text-accent hover:text-accent-light"
+                                    }`}
                             >
                                 Contact
-                            </a>
+                            </Link>
                         </div>
                         <div className="h-4 w-px bg-border hidden sm:block" />
                         <ThemeToggle />

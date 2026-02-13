@@ -94,7 +94,12 @@ function generateArticleJsonLd(post: {
             "@type": "Person",
             name: "Gaurang Gujrati",
             url: siteUrl,
-            image: `${siteUrl}/images/profile.png`,
+            logo: {
+                "@type": "ImageObject",
+                url: `${siteUrl}/images/profile.png`,
+                width: 112,
+                height: 112,
+            },
         },
         image: `${siteUrl}/images/profile.png`,
         mainEntityOfPage: {
@@ -150,6 +155,7 @@ export default async function BlogPostPage({ params }: PageProps) {
             <Navigation currentPage="post" />
 
             {/* Article */}
+            <main role="main">
             <article className="pt-36 pb-24 md:pt-48" itemScope itemType="https://schema.org/BlogPosting">
                 <div className="max-w-3xl mx-auto px-6 md:px-12">
                     {/* Back Link */}
@@ -179,7 +185,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                         <h1 className="font-serif text-display font-medium text-ink leading-tight mb-8 animate-fade-up delay-1" itemProp="headline">
                             {post.title}
                         </h1>
-                        <meta itemProp="description" content={post.excerpt} />
+                        <span itemProp="description" className="sr-only">{post.excerpt}</span>
                         <div className="flex flex-wrap items-center gap-4 text-sm text-ink-muted animate-fade-up delay-2">
                             <time itemProp="datePublished" dateTime={new Date(post.date).toISOString()}>{formatDate(post.date)}</time>
                             <span className="w-1 h-1 rounded-full bg-border" />
@@ -230,6 +236,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     </div>
                 </div>
             </article>
+            </main>
 
             {/* Footer */}
             <footer className="py-12 border-t border-border">

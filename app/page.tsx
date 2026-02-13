@@ -177,6 +177,8 @@ export default function Home() {
 
       <Navigation currentPage="home" />
 
+      {/* Main Content */}
+      <main role="main">
       {/* Hero Section */}
       <header className="pt-36 pb-32 md:pt-48 md:pb-40 relative overflow-hidden texture-mesh">
 
@@ -526,6 +528,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="py-16 md:py-20 border-t border-border footer-pattern">
@@ -583,6 +586,12 @@ export default function Home() {
                 className="text-sm text-ink-muted hover:text-ink transition-colors duration-300"
               >
                 Blog
+              </Link>
+              <Link
+                href="/privacy"
+                className="text-sm text-ink-muted hover:text-ink transition-colors duration-300"
+              >
+                Privacy
               </Link>
             </div>
             <p className="text-sm text-ink-muted">
