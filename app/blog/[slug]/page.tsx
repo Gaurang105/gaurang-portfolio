@@ -44,21 +44,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             publishedTime: new Date(post.date).toISOString(),
             authors: ["Gaurang Gujrati"],
             tags: post.tags,
-            images: [
-                {
-                    url: "/images/profile.png",
-                    width: 1200,
-                    height: 630,
-                    alt: post.title,
-                },
-            ],
         },
         twitter: {
             card: "summary_large_image",
             title: post.title,
             description: post.excerpt,
             creator: "@GaurangGujrati",
-            images: ["/images/profile.png"],
         },
         alternates: {
             canonical: postUrl,
@@ -88,20 +79,13 @@ function generateArticleJsonLd(post: {
             "@type": "Person",
             name: "Gaurang Gujrati",
             url: siteUrl,
-            image: `${siteUrl}/images/profile.png`,
         },
         publisher: {
             "@type": "Person",
             name: "Gaurang Gujrati",
             url: siteUrl,
-            logo: {
-                "@type": "ImageObject",
-                url: `${siteUrl}/images/profile.png`,
-                width: 112,
-                height: 112,
-            },
         },
-        image: `${siteUrl}/images/profile.png`,
+        image: `${siteUrl}/blog/${post.slug}/opengraph-image`,
         mainEntityOfPage: {
             "@type": "WebPage",
             "@id": `${siteUrl}/blog/${post.slug}`,

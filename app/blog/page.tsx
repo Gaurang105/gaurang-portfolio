@@ -23,20 +23,11 @@ export const metadata: Metadata = {
         description: "Thoughts on software engineering, AI, and building products.",
         url: `${siteUrl}/blog`,
         type: "website",
-        images: [
-            {
-                url: "/images/profile.png",
-                width: 1200,
-                height: 630,
-                alt: "Gaurang Gujrati's Blog",
-            },
-        ],
     },
     twitter: {
         card: "summary_large_image",
         title: "Blog — Gaurang Gujrati",
         description: "Thoughts on software engineering, AI, and building products.",
-        images: ["/images/profile.png"],
     },
     alternates: {
         canonical: `${siteUrl}/blog`,
