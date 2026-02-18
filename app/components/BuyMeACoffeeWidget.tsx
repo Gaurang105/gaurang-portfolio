@@ -13,8 +13,8 @@ export function BuyMeACoffeeWidget() {
       data-message="Like what you're reading? You can donate to support my writing!"
       data-color="#FF813F"
       data-position="Right"
-      data-x_margin="18"
-      data-y_margin="18"
+      data-x_margin="12"
+      data-y_margin="12"
       strategy="afterInteractive"
       onLoad={() => {
         window.dispatchEvent(new Event("DOMContentLoaded"));
