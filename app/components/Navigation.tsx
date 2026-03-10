@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
 
 interface NavigationProps {
-    currentPage?: "home" | "blog" | "post" | "about" | "contact" | "privacy";
+    currentPage?: "home" | "blog" | "post" | "about" | "contact" | "privacy" | "resume";
 }
 
 export function Navigation({ currentPage = "home" }: NavigationProps) {
@@ -49,6 +49,15 @@ export function Navigation({ currentPage = "home" }: NavigationProps) {
                                     }`}
                             >
                                 About
+                            </Link>
+                            <Link
+                                href="/resume"
+                                className={`transition-colors duration-300 ${currentPage === "resume"
+                                        ? "text-ink"
+                                        : "text-ink-muted hover:text-ink"
+                                    }`}
+                            >
+                                Resume
                             </Link>
                             <Link
                                 href="/contact"
